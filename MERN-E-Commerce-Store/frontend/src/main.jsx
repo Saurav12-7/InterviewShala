@@ -35,6 +35,7 @@ import Order from "./pages/Orders/Order.jsx";
 import OrderList from "./pages/Admin/OrderList.jsx";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 import AdminDashboard from "./pages/Admin/AdminDashboard.jsx";
+import QuizManagement from "./pages/Admin/QuizManagement.jsx";
 import VideoContaint from "./components/VideoContaint.jsx";
 import Mocktestdiscriptions from "./pages/Mocktestdiscriptions.jsx";
 import Mockdiscriptions from "./pages/Mockdiscriptions.jsx";
@@ -87,6 +88,7 @@ const router = createBrowserRouter(
         <Route path="product/update/:_id" element={<ProductUpdate />} />
         <Route path="orderlist" element={<OrderList />} />
         <Route path="dashboard" element={<AdminDashboard />} />
+        <Route path="quizmanagement" element={<QuizManagement />} />
       </Route>
     </Route>
   )
