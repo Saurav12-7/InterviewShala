@@ -2,6 +2,8 @@ import User from "../models/userModel.js";
 import asyncHandler from "../middlewares/asyncHandler.js";
 import bcrypt from "bcryptjs";
 import createToken from "../utils/createToken.js";
+import crypto from "crypto";
+import nodemailer from "nodemailer";
 
 const createUser = asyncHandler(async (req, res) => {
   const { username, email, password } = req.body;
@@ -36,9 +38,6 @@ const createUser = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
-  console.log(email);
-  console.log(password);
-
   const existingUser = await User.findOne({ email });
 
   if (existingUser) {
@@ -57,13 +56,19 @@ const loginUser = asyncHandler(async (req, res) => {
         isAdmin: existingUser.isAdmin,
       });
       return;
+    } else {
+      res.status(401);
+      throw new Error("Invalid email or password");
     }
+  } else {
+    res.status(401);
+    throw new Error("Invalid email or password");
   }
 });
 
 const logoutCurrentUser = asyncHandler(async (req, res) => {
   res.cookie("jwt", "", {
-    httyOnly: true,
+    httpOnly: true,
     expires: new Date(0),
   });
 
@@ -167,6 +172,119 @@ const updateUserById = asyncHandler(async (req, res) => {
   }
 });
 
+const forgotPassword = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found with this email");
+  }
+
+  // Generate reset token
+  const resetToken = crypto.randomBytes(32).toString("hex");
+  const resetTokenExpiry = Date.now() + 10 * 60 * 1000; // 10 minutes
+
+  // Save reset token to user
+  user.resetPasswordToken = resetToken;
+  user.resetPasswordExpires = resetTokenExpiry;
+  await user.save();
+
+  // For development/testing - simulate email sending
+  // Always use localhost for development, regardless of FRONTEND_URL setting
+  const resetUrl = `http://localhost:5174/reset-password/${resetToken}`;
+  
+  // Always try to send email (for development, we'll use a test email service)
+  try {
+    // Create email transporter using Gmail
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER || "your-email@gmail.com",
+        pass: process.env.EMAIL_PASS || "your-app-password",
+      },
+    });
+
+    // Email content
+    const mailOptions = {
+      from: process.env.EMAIL_USER || "your-email@gmail.com",
+      to: email,
+      subject: "Password Reset Request - InterviewShala",
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h1 style="color: #333; text-align: center;">Password Reset Request</h1>
+          <p>Hello,</p>
+          <p>You requested a password reset for your InterviewShala account.</p>
+          <p>Click the button below to reset your password:</p>
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="${resetUrl}" style="background-color: #4CAF50; color: white; padding: 14px 30px; text-decoration: none; border-radius: 5px; display: inline-block; font-weight: bold;">Reset Password</a>
+          </div>
+          <p><strong>Important:</strong> This link will expire in 10 minutes.</p>
+          <p>If you didn't request this password reset, please ignore this email.</p>
+          <hr style="margin: 30px 0; border: none; border-top: 1px solid #eee;">
+          <p style="color: #666; font-size: 12px;">This is an automated message from InterviewShala. Please do not reply to this email.</p>
+        </div>
+      `,
+    };
+
+    await transporter.sendMail(mailOptions);
+    res.status(200).json({ message: "Password reset email sent successfully! Check your email for the reset link." });
+  } catch (error) {
+    console.error("Email sending error:", error);
+    
+    // If email fails, still return the reset URL for development
+    console.log("Password reset URL (for development):", resetUrl);
+    res.status(200).json({ 
+      message: "Email could not be sent, but here's your reset link for development:",
+      resetUrl: resetUrl,
+      development: true
+    });
+  }
+});
+
+const resetPassword = asyncHandler(async (req, res) => {
+  const { token, password } = req.body;
+
+  const user = await User.findOne({
+    resetPasswordToken: token,
+    resetPasswordExpires: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    res.status(400);
+    throw new Error("Invalid or expired reset token");
+  }
+
+  // Hash new password
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+
+  // Update password and clear reset token
+  user.password = hashedPassword;
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpires = undefined;
+  await user.save();
+
+  res.status(200).json({ message: "Password reset successful" });
+});
+
+const verifyResetToken = asyncHandler(async (req, res) => {
+  const { token } = req.params;
+
+  const user = await User.findOne({
+    resetPasswordToken: token,
+    resetPasswordExpires: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    res.status(400);
+    throw new Error("Invalid or expired reset token");
+  }
+
+  res.status(200).json({ message: "Token is valid" });
+});
+
 export {
   createUser,
   loginUser,
@@ -177,4 +295,7 @@ export {
   deleteUserById,
   getUserById,
   updateUserById,
+  forgotPassword,
+  resetPassword,
+  verifyResetToken,
 };

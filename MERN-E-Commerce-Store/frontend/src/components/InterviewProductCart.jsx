@@ -1,81 +1,53 @@
-import React, { useState } from "react";
-import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
-// import { Link } from "react-router-dom";
-import Footer from '../components/Footer';
-import Offer from '../components/Offer';
-import { useNavigate } from "react-router";
+import React from 'react';
+import Offer from './Offer';
+import Footer from './Footer';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../redux/features/cart/cartSlice';
+import { useNavigate } from 'react-router-dom';
 
 const StarRating = ({ rating }) => {
-  
-  const stars = Array.from({ length: 5 }, (_, index) =>
-    index + 1 <= rating ? (
-      <span key={index} className="text-yellow-500">
+  const stars = [];
+  for (let i = 1; i <= 5; i++) {
+    stars.push(
+      <span key={i} className={i <= rating ? "text-yellow-400" : "text-gray-300"}>
         ★
       </span>
-    ) : (
-      <span key={index} className="text-gray-500">
-        ☆
-      </span>
-    )
-  );
-
+    );
+  }
   return <div className="flex">{stars}</div>;
 };
 
-const ProductCard = ({ title, image, description, price, addToCartHandler }) => {
-  const navigate = useNavigate()
-  const [quantity, setQuantity] = useState(1);
+const ProductCard = ({ title, image, description, price }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleIncrement = () => {
-    setQuantity(quantity + 1);
-  };
+  const handleAddToCart = () => {
+    // Create a product object that matches the main e-commerce structure
+    const product = {
+      _id: `mock-interview-${title.toLowerCase().replace(/\s+/g, '-')}`,
+      name: title,
+      image: image,
+      price: price,
+      description: description,
+      countInStock: 100,
+      category: "Mock Interview",
+      brand: "InterviewShala"
+    };
 
-  const handleDecrement = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
-  };
+    // Add to cart using the main e-commerce system
+    dispatch(addToCart({
+      ...product,
+      qty: 1
+    }));
 
-  const handlePayNow = async () => {
-    try {
-      const response = await fetch(`http://localhost:8000/api/stripe/create-checkout-session`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          product: {
-            name: title,
-            price: price,
-            description: description,
-          },
-          productType: "interview",
-        }),
-      });
-      
-      const data = await response.json();
-      
-      if (data.url) {
-        // Redirect to Stripe Checkout
-        window.location.href = data.url;
-      } else {
-        console.error("No checkout URL received");
-      }
-    } catch (error) {
-      console.error("Error creating checkout session:", error);
-    }
-  };
-
-  const handlePayNowClick = () => {
-    // This will be handled by StripeCheckout component
+    // Navigate to cart
+    navigate('/cart');
   };
 
   return (
-  
-    
-    <div className="container w-[500px] h-[500px] bg-blue-50 rounded-lg px-6 py-4 hover:scale-105  transition-all delay-0">
+    <div className="container w-[500px] h-[500px] bg-blue-50 rounded-lg px-6 py-4 hover:scale-105 transition-all delay-0">
       <div className="container w-full h-full flex flex-col items-center rounded-md">
-        <div className="w-[26rem] h-[15rem] my-2 hover:scale-95 transition-all delay-0 ease-in cursor-pointer border-4 rounded-md border-white ">
+        <div className="w-[26rem] h-[15rem] my-2 hover:scale-95 transition-all delay-0 ease-in cursor-pointer border-4 rounded-md border-white">
           <img
             src={image}
             alt={`Product Image for ₹${title}`}
@@ -96,50 +68,39 @@ const ProductCard = ({ title, image, description, price, addToCartHandler }) => 
         <div className="flex items-center gap-3">
           <button
             className="bg-pink-600 text-white px-4 py-2 rounded-full hover:bg-pink-700 transition-colors"
-            onClick={handlePayNow}
+            onClick={handleAddToCart}
           >
-            Pay Now ₹{price}
+            Add to Cart ₹{price}
           </button>
-         </div> 
         </div>
       </div>
-   
+    </div>
   );
 };
-
 
 const InterviewProductCart = () => {
   return (
     <div>
-    <Offer/>
-    <div className="product-list flex flex-col items-center justify-center gap-8 w-[100vw] h-[100vh] container mx-auto">
-    <h1 className="text-6xl font-semibold m-0">Mock Interview</h1>
-    <div className="flex items-center gap-14">
-      {/* Pass the addToCartHandler function to ProductCard */}
-      <ProductCard
-        title="Mock Interview for College Entrance"
-        image="../../public/images/InterviewProductCart111.png"
-        description="Many colleges and universities require applicants to participate in an interview as part of the admissions process."
-        price={99}
-        addToCartHandler={(quantity) => {
-          // Handle adding to cart logic here
-          console.log(`Added to cart: Mock Interview for College Entrance - Quantity: ${quantity}`);
-        }}
-      />
-      <ProductCard
-        title="Mock interview for Job"
-        image="../../public/images/InterviewProductCart222.png"
-        description="Job interviews are a standard part of the hiring process."
-        price={99}
-        addToCartHandler={(quantity) => {
-          // Handle adding to cart logic here
-          console.log(`Added to cart: Mock interview for Job - Quantity: ${quantity}`);
-        }}
-      />
+      <Offer/>
+      <div className="product-list flex flex-col items-center justify-center gap-8 w-[100vw] h-[100vh] container mx-auto">
+        <h1 className="text-6xl font-semibold m-0">Mock Interview</h1>
+        <div className="flex items-center gap-14">
+          <ProductCard
+            title="Mock Interview for College Entrance"
+            image="../../public/images/InterviewProductCart111.png"
+            description="Many colleges and universities require applicants to participate in an interview as part of the admissions process."
+            price={99}
+          />
+          <ProductCard
+            title="Mock interview for Job"
+            image="../../public/images/InterviewProductCart222.png"
+            description="Job interviews are a standard part of the hiring process."
+            price={99}
+          />
+        </div>
+      </div>
+      <Footer/>
     </div>
-  </div>
-  <Footer/>
-  </div>
   );
 };
 

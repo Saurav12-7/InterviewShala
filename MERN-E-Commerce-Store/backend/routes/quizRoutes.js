@@ -9,7 +9,7 @@ import {
   updateQuiz,
   deleteQuiz,
 } from "../controllers/quizController.js";
-import { protect, admin } from "../middlewares/authMiddleware.js";
+import { authenticate as protect, authorizeAdmin as admin } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 

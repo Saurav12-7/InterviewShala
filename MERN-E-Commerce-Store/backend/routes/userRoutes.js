@@ -9,6 +9,9 @@ import {
   deleteUserById,
   getUserById,
   updateUserById,
+  forgotPassword,
+  resetPassword,
+  verifyResetToken,
 } from "../controllers/userController.js";
 
 import { authenticate, authorizeAdmin } from "../middlewares/authMiddleware.js";
@@ -22,6 +25,9 @@ router
 
 router.post("/auth", loginUser);
 router.post("/logout", logoutCurrentUser);
+router.post("/forgot-password", forgotPassword);
+router.post("/reset-password", resetPassword);
+router.get("/verify-reset-token/:token", verifyResetToken);
 
 router
   .route("/profile")

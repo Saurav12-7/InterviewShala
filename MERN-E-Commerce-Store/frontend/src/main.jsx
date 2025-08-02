@@ -4,16 +4,19 @@ import App from "./App.jsx";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import { Route, RouterProvider, createRoutesFromElements } from "react-router";
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 
 import PrivateRoute from "./components/PrivateRoute";
 
 // Auth
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
+import ResetPassword from "./pages/Auth/ResetPassword";
 
 import AdminRoute from "./pages/Admin/AdminRoute";
 import Profile from "./pages/User/Profile";
+import UserOrder from "./pages/User/UserOrder";
 import UserList from "./pages/Admin/UserList";
 
 import CategoryList from "./pages/Admin/CategoryList";
@@ -52,17 +55,20 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/reset-password/:token" element={<ResetPassword />} />
       <Route index={true} path="/" element={<Home />} />
       <Route path="/video" element={<VideoContaint />} />
       <Route path="/favorite" element={<Favorites />} />
       <Route path="/product/:id" element={<ProductDetails />} />
       <Route path="/cart" element={<Cart />} />
-      <Route path="/shop" element={<Shop />} />
+              <Route path="/shop" element={<Navigate to="/" replace />} />
     
 
       {/* Registered users */}
       <Route path="" element={<PrivateRoute />}>
         <Route path="/profile" element={<Profile />} />
+        <Route path="/user-orders" element={<UserOrder />} />
         <Route path="/shipping" element={<Shipping />} />
         <Route path="/mock-description" element={<Mockdiscriptions/>}/>
         <Route path="/calendar-booking" element={<CalendarBooking/>}/>

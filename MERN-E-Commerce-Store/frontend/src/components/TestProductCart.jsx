@@ -1,81 +1,56 @@
-import React, { useState, useRef } from "react";
-import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
-import Footer from '../components/Footer';
-import Offer from '../components/Offer';
-import { useNavigate } from "react-router";
+import React from 'react';
+import Offer from './Offer';
+import Footer from './Footer';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../redux/features/cart/cartSlice';
+import { useNavigate } from 'react-router-dom';
 
 const StarRating = ({ rating }) => {
-  const stars = Array.from({ length: 5 }, (_, index) =>
-    index + 1 <= rating ? (
-      <span key={index} className="text-yellow-500">
+  const stars = [];
+  for (let i = 1; i <= 5; i++) {
+    stars.push(
+      <span key={i} className={i <= rating ? "text-yellow-400" : "text-gray-300"}>
         ★
       </span>
-    ) : (
-      <span key={index} className="text-gray-500">
-        ☆
-      </span>
-    )
-  );
-
+    );
+  }
   return <div className="flex">{stars}</div>;
 };
 
 const ProductCard = ({ title, image, description, price }) => {
-  const navigate = useNavigate()
-  const [quantity, setQuantity] = useState(1);
-  const payNowButtonRef = useRef(null);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleIncrement = () => {
-    setQuantity(quantity + 1);
-  };
+  const handleAddToCart = () => {
+    // Create a product object that matches the main e-commerce structure
+    const product = {
+      _id: `mock-test-${title.toLowerCase().replace(/\s+/g, '-')}`,
+      name: title,
+      image: image,
+      price: price,
+      description: description,
+      countInStock: 100,
+      category: "Mock Test",
+      brand: "InterviewShala"
+    };
 
-  const handleDecrement = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
-  };
+    // Add to cart using the main e-commerce system
+    dispatch(addToCart({
+      ...product,
+      qty: 1
+    }));
 
-  const handlePayNow = async () => {
-    try {
-      const response = await fetch(`http://localhost:8000/api/stripe/create-checkout-session`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          product: {
-            name: title,
-            price: price,
-            description: description,
-          },
-          productType: "test",
-        }),
-      });
-      
-      const data = await response.json();
-      
-      if (data.url) {
-        // Redirect to Stripe Checkout
-        window.location.href = data.url;
-      } else {
-        console.error("No checkout URL received");
-      }
-    } catch (error) {
-      console.error("Error creating checkout session:", error);
-    }
-  };
-
-  const handlePayNowClick = () => {
-    // This will be handled by the new payment function
+    // Navigate to cart
+    navigate('/cart');
   };
 
   return (
-    <div className="container w-[500px] h-[500px] bg-blue-50 rounded-lg px-6 py-4 hover:scale-105  transition-all delay-0">
+    <div className="container w-[400px] h-[450px] bg-blue-50 rounded-lg px-4 py-3 hover:scale-105 transition-all delay-0">
       <div className="container w-full h-full flex flex-col items-center rounded-md">
-        <div className="w-[26rem] h-[15rem] my-2 hover:scale-95 transition-all delay-0 ease-in cursor-pointer border-4 rounded-md border-white ">
+        <div className="w-[20rem] h-[12rem] my-2 hover:scale-95 transition-all delay-0 ease-in cursor-pointer border-4 rounded-md border-white">
           <img
             src={image}
-            alt={`Product Image for ₹{title}`}
+            alt={`Product Image for ₹${title}`}
             className="h-full w-full aspect-[3/4] object-cover rounded-md"
           />
         </div>
@@ -87,15 +62,15 @@ const ProductCard = ({ title, image, description, price }) => {
         </div>
         <div className="flex flex-col items-center my-3">
           <StarRating rating={4} />
-
           <p className="text-xl font-bold">₹{price}</p>
         </div>
 
         <div className="flex items-center gap-3">
-          
-
-          <button ref={payNowButtonRef} onClick={handlePayNow} className="bg-pink-600 text-white px-4 py-2 rounded-full hover:bg-pink-700 transition-colors">
-            Pay Now ₹{price}
+          <button
+            className="bg-pink-600 text-white px-4 py-2 rounded-full hover:bg-pink-700 transition-colors"
+            onClick={handleAddToCart}
+          >
+            Add to Cart ₹{price}
           </button>
         </div>
       </div>
@@ -105,54 +80,51 @@ const ProductCard = ({ title, image, description, price }) => {
 
 const TestProductCart = () => {
   return (
-    <div><Offer/>
-    <div className="product-list flex flex-col items-center gap-4 w-full min-h-screen px-4 py-10">
-      <h1 className="text-6xl font-semibold m-10">Mock Test</h1>
-      <div className="flex items-center gap-20 ml-[6rem] grid grid-cols-2 ">
-      <ProductCard
-        title="Mock Test for College Entrance"
-        image="../../public/images/Mock Test1.jpeg"
-        description="Comprehensive mock test designed to prepare students for college entrance examinations with real exam-like questions and timing."
-        price={99}
-      />
-       <ProductCard
-        title="Mock Test for Job"
-        image="../../public/images/Mock Test2.jpeg"
-        description="Professional mock test to help job seekers prepare for technical interviews and assessment tests."
-        price={99}
-      />
-      <ProductCard
-        title="Mock test for College Entrance"
-        image="../../public/images/Mock Test4.jpg"
-        description="Practice test covering all major topics for college entrance exams with detailed explanations."
-        price={99}
-      />
-      <ProductCard
-        title="Mock test for PES University Entrance"
-        image="../../public/images/MockTest.png"
-        description="Specialized mock test specifically designed for PES University entrance examination preparation."
-        price={99}
-      />
-      <ProductCard
-        title="Mock test for CUET Entrance"
-        image="../../public/images/InterviewProductCart111.png"
-        description="CUET (Common University Entrance Test) mock test with comprehensive coverage of all subjects."
-        price={99}
-      />
-      <ProductCard
-        title="Mock interview for Job"
-        image="../../public/images/InterviewProductCart222.png"
-        description="Professional mock interview session to help you prepare for job interviews and improve your skills."
-        price={99}
-      />
-     
+    <div>
+      <Offer/>
+      <div className="product-list flex flex-col items-center gap-4 w-full min-h-screen px-4 py-10">
+        <h1 className="text-6xl font-semibold m-10">Mock Test</h1>
+        <div className="flex items-center gap-20 ml-[6rem] grid grid-cols-2">
+          <ProductCard
+            title="Mock Test for College Entrance"
+            image="../../public/images/Mock Test1.jpeg"
+            description="Comprehensive mock test designed to prepare students for college entrance examinations with real exam-like questions and timing."
+            price={99}
+          />
+          <ProductCard
+            title="Mock Test for Job"
+            image="../../public/images/Mock Test2.jpeg"
+            description="Professional mock test to help job seekers prepare for technical interviews and assessment tests."
+            price={99}
+          />
+          <ProductCard
+            title="Mock test for College Entrance"
+            image="../../public/images/Mock Test4.jpg"
+            description="Practice test covering all major topics for college entrance exams with detailed explanations."
+            price={99}
+          />
+          <ProductCard
+            title="Mock test for PES University Entrance"
+            image="../../public/images/MockTest.png"
+            description="Specialized mock test specifically designed for PES University entrance examination preparation."
+            price={99}
+          />
+          <ProductCard
+            title="Mock test for CUET Entrance"
+            image="../../public/images/InterviewProductCart111.png"
+            description="CUET (Common University Entrance Test) mock test with comprehensive coverage of all subjects."
+            price={99}
+          />
+          <ProductCard
+            title="Mock interview for Job"
+            image="../../public/images/InterviewProductCart222.png"
+            description="Professional mock interview session to help you prepare for job interviews and improve your skills."
+            price={99}
+          />
+        </div>
       </div>
-      <div className=' bottom-0 w-full'>
-    <Footer/>
-      </div>
-      </div>
+      <Footer/>
     </div>
-    
   );
 };
 

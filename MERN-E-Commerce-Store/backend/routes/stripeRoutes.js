@@ -4,8 +4,29 @@ import { v4 as uuidv4 } from 'uuid';
 
 const router = express.Router();
 
-// Initialize Stripe with your secret key
-const stripe = new Stripe("sk_test_51Rp0b75zlD1FAnOGUGjHptj622xDQX1acOglk8y0E4rnMXmwi60nrfxiakhfML9hMAYtpitfwaajAHvYtnzTgnH600BD0RnbcL");
+// Initialize Stripe with environment variable or fallback for development
+let stripe;
+try {
+  const stripeSecretKey = process.env.STRIPE_SECRET_KEY || "sk_test_51Rp0b75zlD1FAnOGUGjHptj622xDQX1acOglk8y0E4rnMXmwi60nrfxiakhfML9hMAYtpitfwaajAHvYtnzTgnH600BD0RnbcL";
+  stripe = new Stripe(stripeSecretKey);
+  console.log("Stripe initialized successfully");
+} catch (error) {
+  console.error("Stripe initialization error:", error.message);
+  // Create a mock stripe object to prevent crashes
+  stripe = {
+    checkout: {
+      sessions: {
+        create: async () => ({ url: "http://localhost:5173/payment-error" })
+      }
+    },
+    customers: {
+      create: async () => ({ id: "mock_customer" })
+    },
+    charges: {
+      create: async () => ({ id: "mock_charge" })
+    }
+  };
+}
 
 // Create Stripe Checkout session
 router.post("/create-checkout-session", async (req, res) => {
@@ -14,13 +35,14 @@ router.post("/create-checkout-session", async (req, res) => {
     
     console.log("Creating checkout session for:", product, "Type:", productType);
 
-    // Determine success URL based on product type
-    let successUrl = "http://localhost:5173/calendar-booking"; // Default for interviews
-    let cancelUrl = "http://localhost:5173/interview-product-cart"; // Default for interviews
+    // Use environment variables for URLs
+    const baseUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+    let successUrl = `${baseUrl}/calendar-booking`; // Default for interviews
+    let cancelUrl = `${baseUrl}/interview-product-cart`; // Default for interviews
     
     if (productType === "test") {
-      successUrl = "http://localhost:5173/quiz-redirect";
-      cancelUrl = "http://localhost:5173/mocktest";
+      successUrl = `${baseUrl}/quiz-redirect`;
+      cancelUrl = `${baseUrl}/mocktest`;
     }
 
     const session = await stripe.checkout.sessions.create({
@@ -46,7 +68,12 @@ router.post("/create-checkout-session", async (req, res) => {
     res.json({ url: session.url });
   } catch (error) {
     console.error("Error creating checkout session:", error);
-    res.status(500).json({ error: error.message });
+    // Return a fallback response instead of crashing
+    res.status(500).json({ 
+      error: "Payment service temporarily unavailable",
+      fallback: true,
+      message: "Please try again later or contact support"
+    });
   }
 });
 
@@ -82,7 +109,12 @@ router.post("/payment", async (req, res) => {
     res.status(200).json(charge);
   } catch (error) {
     console.error("Payment error:", error);
-    res.status(500).json({ error: error.message });
+    // Return a fallback response instead of crashing
+    res.status(500).json({ 
+      error: "Payment processing failed",
+      fallback: true,
+      message: "Please try again later or contact support"
+    });
   }
 });
 

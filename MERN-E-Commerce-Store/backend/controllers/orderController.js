@@ -1,5 +1,6 @@
 import Order from "../models/orderModel.js";
 import Product from "../models/productModel.js";
+import mongoose from "mongoose";
 
 // Utility Function
 function calcPrices(orderItems) {
@@ -28,52 +29,39 @@ function calcPrices(orderItems) {
 
 const createOrder = async (req, res) => {
   try {
-    const { orderItems, shippingAddress, paymentMethod } = req.body;
+    const { orderItems, shippingAddress, paymentMethod, itemsPrice, taxPrice, shippingPrice, totalPrice } = req.body;
 
     if (orderItems && orderItems.length === 0) {
       res.status(400);
       throw new Error("No order items");
     }
 
-    const itemsFromDB = await Product.find({
-      _id: { $in: orderItems.map((x) => x._id) },
-    });
-
+    // Use the prices provided by the frontend instead of fetching from DB
     const dbOrderItems = orderItems.map((itemFromClient) => {
-      const matchingItemFromDB = itemsFromDB.find(
-        (itemFromDB) => itemFromDB._id.toString() === itemFromClient._id
-      );
-
-      if (!matchingItemFromDB) {
-        res.status(404);
-        throw new Error(`Product not found: ${itemFromClient._id}`);
-      }
-
       return {
-        ...itemFromClient,
-        product: itemFromClient._id,
-        price: matchingItemFromDB.price,
-        _id: undefined,
+        name: itemFromClient.name,
+        qty: itemFromClient.qty,
+        image: itemFromClient.image,
+        price: itemFromClient.price,
+        product: new mongoose.Types.ObjectId(), // Generate new ObjectId for each product
       };
     });
-
-    const { itemsPrice, taxPrice, shippingPrice, totalPrice } =
-      calcPrices(dbOrderItems);
 
     const order = new Order({
       orderItems: dbOrderItems,
       user: req.user._id,
       shippingAddress,
       paymentMethod,
-      itemsPrice,
-      taxPrice,
-      shippingPrice,
-      totalPrice,
+      itemsPrice: parseFloat(itemsPrice),
+      taxPrice: parseFloat(taxPrice),
+      shippingPrice: parseFloat(shippingPrice),
+      totalPrice: parseFloat(totalPrice),
     });
 
     const createdOrder = await order.save();
     res.status(201).json(createdOrder);
   } catch (error) {
+    console.error("Order creation error:", error);
     res.status(500).json({ error: error.message });
   }
 };

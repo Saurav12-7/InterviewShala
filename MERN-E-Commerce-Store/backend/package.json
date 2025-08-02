@@ -8,7 +8,12 @@
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
-  "keywords": ["nodejs", "express", "mongodb", "ecommerce"],
+  "keywords": [
+    "nodejs",
+    "express",
+    "mongodb",
+    "ecommerce"
+  ],
   "author": "vaibhaw Kumar",
   "license": "ISC",
   "dependencies": {
@@ -22,6 +27,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.6.3",
     "multer": "^1.4.5-lts.1",
+    "nodemailer": "^7.0.5",
     "stripe": "^18.3.0",
     "uuid": "^11.1.0"
   },
@@ -31,4 +37,4 @@
   "engines": {
     "node": ">=18.0.0"
   }
-} 
+}

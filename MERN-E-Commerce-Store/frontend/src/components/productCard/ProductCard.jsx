@@ -17,31 +17,26 @@ function ProductCard({product}) {
       setIsHover(false)
       // console.log(`not hover ${isHover}`);
   }
-  const navigate  = useNavigate()
-  const enrollHandler =(e) =>{
+  const navigate = useNavigate()
+  const enrollHandler = (e) => {
     e.preventDefault()
    
     const category = product.category;
     console.log(category);
     
+    // Navigate to appropriate pages based on category
     if (category === "interview") {
-      // console.log("/mockinterview");
-         navigate("/mockinterview")
-       
+      navigate("/mockinterview")
     } else if (category === "test") {
-        navigate("/mocktest");
-
+      navigate("/mocktest")
     } else if (category === "video") {
-        navigate("/video-content")
-        
+      navigate("/video-content")
     } else if (category === "eBook") {
-         navigate("/ebook")
-        
+      navigate("/ebook")
     } else {
-        console.log("condition is not match");
+      // Default to homepage
+      navigate("/")
     }
-    
-    
   }
 
   return (
