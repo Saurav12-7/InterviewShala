@@ -45,7 +45,7 @@ import Mockdiscriptions from "./pages/Mockdiscriptions.jsx";
 import CalendarBooking from "./pages/CalendarBooking.jsx";
 import QuizRedirect from "./pages/QuizRedirect.jsx";
 import DummyQuiz from "./pages/DummyQuiz.jsx";
-import Ebook from "./pages/ebook.jsx";
+import Ebook from "./pages/Ebook.jsx";
 import Aboutus from "./pages/Aboutus.jsx";
 import InterviewProductCart from "./components/InterviewProductCart.jsx";
 import TestProductCart from "./components/TestProductCart.jsx";
