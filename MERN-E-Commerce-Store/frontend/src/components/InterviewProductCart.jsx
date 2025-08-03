@@ -4,6 +4,7 @@ import Footer from './Footer';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../redux/features/cart/cartSlice';
 import { useNavigate } from 'react-router-dom';
+import { getImageUrl } from '../Utils/imageUtils';
 
 const StarRating = ({ rating }) => {
   const stars = [];
@@ -49,7 +50,7 @@ const ProductCard = ({ title, image, description, price }) => {
       <div className="container w-full h-full flex flex-col items-center rounded-md">
         <div className="w-[26rem] h-[15rem] my-2 hover:scale-95 transition-all delay-0 ease-in cursor-pointer border-4 rounded-md border-white">
           <img
-            src={image}
+            src={getImageUrl(image)}
             alt={`Product Image for ₹${title}`}
             className="h-full w-full aspect-[3/4] object-cover rounded-md"
           />

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { getImageUrl } from '../../Utils/imageUtils';
 
 function ProductCard({product}) {
   const [isHover, setIsHover] = useState(false);
@@ -47,7 +48,7 @@ function ProductCard({product}) {
                   <div className="relative w-full h-full cursor-pointer rounded-md border-2 border-blue-600">
                     <div className='h-[170px]'>
                     <img
-                      src={product.img}
+                      src={getImageUrl(product.img)}
                       className="w-full h-full"
                       alt="Mock Interview"
                     />
