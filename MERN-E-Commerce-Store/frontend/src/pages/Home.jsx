@@ -26,25 +26,25 @@ const { data, isLoading, isError, error } = useGetProductsQuery({ keyword });
   const products = [
     {
       title: "Mock Interview",
-      img: "../../public/images/First.jpg",
+      img: "/images/First.jpg",
       // isInterview: true,
       category : "interview"
     },
     {
       title: "Mock Test",
-      img: "../../public/images/MockTest.png",
+      img: "/images/MockTest.png",
       category : "test"
       // isTest:true
     },
     {
       title: "Video/Content",
-      img: "../../public/images/video-content.jpg",
+      img: "/images/video-content.jpg",
       category : "video"
       // isVideo : true,
     },
     {
       title: "E-books",
-      img: "../../public/images/Modern-Education.png",
+      img: "/images/Modern-Education.png",
       category : "eBook"
       // isEBook: true,
     }

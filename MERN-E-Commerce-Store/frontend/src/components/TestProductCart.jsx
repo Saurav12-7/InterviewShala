@@ -4,6 +4,7 @@ import Footer from './Footer';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../redux/features/cart/cartSlice';
 import { useNavigate } from 'react-router-dom';
+import { getImageUrl } from '../Utils/imageUtils';
 
 const StarRating = ({ rating }) => {
   const stars = [];
@@ -49,7 +50,7 @@ const ProductCard = ({ title, image, description, price }) => {
       <div className="container w-full h-full flex flex-col items-center rounded-md">
         <div className="w-[20rem] h-[12rem] my-2 hover:scale-95 transition-all delay-0 ease-in cursor-pointer border-4 rounded-md border-white">
           <img
-            src={image}
+            src={getImageUrl(image)}
             alt={`Product Image for ₹${title}`}
             className="h-full w-full aspect-[3/4] object-cover rounded-md"
           />
@@ -87,37 +88,37 @@ const TestProductCart = () => {
         <div className="flex items-center gap-20 ml-[6rem] grid grid-cols-2">
           <ProductCard
             title="Mock Test for College Entrance"
-            image="../../public/images/Mock Test1.jpeg"
+            image="/images/Mock Test1.jpeg"
             description="Comprehensive mock test designed to prepare students for college entrance examinations with real exam-like questions and timing."
             price={99}
           />
           <ProductCard
             title="Mock Test for Job"
-            image="../../public/images/Mock Test2.jpeg"
+            image="/images/Mock Test2.jpeg"
             description="Professional mock test to help job seekers prepare for technical interviews and assessment tests."
             price={99}
           />
           <ProductCard
             title="Mock test for College Entrance"
-            image="../../public/images/Mock Test4.jpg"
+            image="/images/Mock Test4.jpg"
             description="Practice test covering all major topics for college entrance exams with detailed explanations."
             price={99}
           />
           <ProductCard
             title="Mock test for PES University Entrance"
-            image="../../public/images/MockTest.png"
+            image="/images/MockTest.png"
             description="Specialized mock test specifically designed for PES University entrance examination preparation."
             price={99}
           />
           <ProductCard
             title="Mock test for CUET Entrance"
-            image="../../public/images/InterviewProductCart111.png"
+            image="/images/InterviewProductCart111.png"
             description="CUET (Common University Entrance Test) mock test with comprehensive coverage of all subjects."
             price={99}
           />
           <ProductCard
             title="Mock interview for Job"
-            image="../../public/images/InterviewProductCart222.png"
+            image="/images/InterviewProductCart222.png"
             description="Professional mock interview session to help you prepare for job interviews and improve your skills."
             price={99}
           />
