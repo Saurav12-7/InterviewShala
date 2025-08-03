@@ -43,20 +43,20 @@ function ProductCard({product}) {
   return (
     <>
     
-    <div onMouseEnter={hoverHandler} onMouseLeave={afterHoverHandler} className="relative card w-full max-w-[300px] mx-auto">
+    <div onMouseEnter={hoverHandler} onMouseLeave={afterHoverHandler} className="relative card w-full max-w-[280px] sm:max-w-[300px] mx-auto">
                   {!isHover ? <div></div> : <div className="absolute top-0 left-0 w-full bg-black h-full z-10 opacity-50 cursor-pointer rounded-md"></div>}
                   <div className="relative w-full h-full cursor-pointer rounded-md border-2 border-blue-600 overflow-hidden">
-                    <div className='h-[150px] sm:h-[170px]'>
+                    <div className='h-[120px] sm:h-[150px] lg:h-[170px]'>
                     <img
                       src={getImageUrl(product.img)}
                       className="w-full h-full object-cover"
                       alt="Mock Interview"
                     />
                     </div>
-                    <h1 className="text-center my-3 sm:my-4 px-2 text-sm sm:text-base font-semibold">{product.title}</h1>
+                    <h1 className="text-center my-2 sm:my-3 lg:my-4 px-2 text-xs sm:text-sm lg:text-base font-semibold">{product.title}</h1>
                     
                     <div className={`${isHover ? "absolute" : "hidden"} top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 flex flex-col items-center justify-center gap-2`}>
-                      <button className="cursor-pointer bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-full text-white text-sm transition duration-300" onClick={enrollHandler}>
+                      <button className="cursor-pointer bg-blue-600 hover:bg-blue-700 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-white text-xs sm:text-sm transition duration-300" onClick={enrollHandler}>
                         Enroll Now
                       </button>
                     </div>

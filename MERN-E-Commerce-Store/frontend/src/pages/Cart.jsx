@@ -30,7 +30,7 @@ const Cart = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <div className="container mx-auto px-4 py-8 max-w-6xl">
+             <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-8 max-w-6xl">
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center justify-between">
@@ -43,10 +43,10 @@ const Cart = () => {
                 Continue Shopping
               </Link>
             </div>
-            <h1 className="text-3xl font-bold text-gray-800 flex items-center">
-              <FaShoppingCart className="w-8 h-8 mr-3 text-pink-500" />
-              Shopping Cart
-            </h1>
+                         <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 flex items-center">
+               <FaShoppingCart className="w-6 h-6 sm:w-8 sm:h-8 mr-2 sm:mr-3 text-pink-500" />
+               Shopping Cart
+             </h1>
           </div>
         </div>
 

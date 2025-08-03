@@ -53,20 +53,20 @@ const ProductCarousel = () => {
               countInStock,
             }) => (
               <div key={_id}>
-                <img
-                  src={getImageUrl(image)}
-                  alt={name}
-                  className="w-full rounded-lg object-cover h-[20rem] sm:h-[25rem] lg:h-[30rem]"
-                />
+                                 <img
+                   src={getImageUrl(image)}
+                   alt={name}
+                   className="w-full rounded-lg object-cover h-[15rem] sm:h-[20rem] lg:h-[25rem] xl:h-[30rem]"
+                 />
 
-                <div className="mt-4 flex flex-col lg:flex-row justify-between gap-4">
-                  <div className="one">
-                    <h2 className="text-lg sm:text-xl font-bold">{name}</h2>
-                    <p className="text-lg font-semibold text-green-600"> $ {price}</p>
-                    <p className="text-sm sm:text-base text-gray-600 mt-2 max-w-full lg:max-w-[25rem]">
-                      {description.substring(0, 170)} ...
-                    </p>
-                  </div>
+                 <div className="mt-3 sm:mt-4 flex flex-col lg:flex-row justify-between gap-3 sm:gap-4">
+                   <div className="one">
+                     <h2 className="text-base sm:text-lg lg:text-xl font-bold">{name}</h2>
+                     <p className="text-base sm:text-lg font-semibold text-green-600"> $ {price}</p>
+                     <p className="text-xs sm:text-sm lg:text-base text-gray-600 mt-1 sm:mt-2 max-w-full lg:max-w-[25rem]">
+                       {description.substring(0, 120)} ...
+                     </p>
+                   </div>
 
                   <div className="flex flex-col sm:flex-row lg:flex-col justify-between gap-4 w-full lg:w-[20rem]">
                     <div className="one">

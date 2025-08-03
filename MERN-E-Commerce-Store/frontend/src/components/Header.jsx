@@ -16,7 +16,7 @@ const Header = () => {
 
   return (
     <>
-      <div className="flex flex-col lg:flex-row justify-around gap-6 lg:gap-8 px-4 sm:px-6 lg:px-8">
+             <div className="flex flex-col lg:flex-row justify-around gap-4 sm:gap-6 lg:gap-8 px-2 sm:px-4 lg:px-8">
         <div className="hidden xl:block lg:w-1/2">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {data.map((product) => (

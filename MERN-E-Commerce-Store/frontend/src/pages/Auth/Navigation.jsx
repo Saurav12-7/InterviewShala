@@ -44,13 +44,15 @@ const Navigation = () => {
   };
 
   return (
-    <div
-      style={{ zIndex: 9999 }}
-      className={`${
-        showSidebar ? "hidden" : "flex"
-      } xl:flex lg:flex md:hidden sm:hidden flex-col justify-between p-2 sm:p-4 text-white bg-[#000] w-[4%] hover:w-[15%] h-[100vh] fixed transition-all duration-300`}
-      id="navigation-container"
-    >
+    <>
+      {/* Desktop Sidebar - Hidden on mobile */}
+      <div
+        style={{ zIndex: 9999 }}
+        className={`${
+          showSidebar ? "hidden" : "hidden"
+        } xl:flex lg:flex md:hidden sm:hidden flex-col justify-between p-2 sm:p-4 text-white bg-[#000] w-[4%] hover:w-[15%] h-[100vh] fixed transition-all duration-300`}
+        id="navigation-container"
+      >
       <div className="flex flex-col justify-center space-y-4">
         <Link
           to="/"
@@ -211,10 +213,87 @@ const Navigation = () => {
               </Link>
             </li>
           </ul>
-        )}
+                 )}
+       </div>
+     </div>
+
+      {/* Mobile Header - Visible on mobile */}
+      <div className="xl:hidden lg:hidden md:flex sm:flex flex-col bg-white shadow-md">
+        <div className="flex items-center justify-between p-4 border-b">
+          <div className="flex items-center">
+            <img src="/images/logo.png" alt="InterviewShala" className="h-8 w-auto" />
+            <span className="ml-2 text-lg font-bold text-gray-800">InterviewShala</span>
+          </div>
+          
+          <div className="flex items-center space-x-4">
+            {userInfo ? (
+              <div className="relative">
+                <button
+                  onClick={toggleDropdown}
+                  className="flex items-center text-gray-700 focus:outline-none"
+                >
+                  <span className="text-sm font-medium">{userInfo.username}</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className={`h-4 w-4 ml-1 ${
+                      dropdownOpen ? "transform rotate-180" : ""
+                    }`}
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d={dropdownOpen ? "M5 15l7-7 7 7" : "M19 9l-7 7-7-7"}
+                    />
+                  </svg>
+                </button>
+
+                {dropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                    {userInfo.isAdmin && (
+                      <>
+                        <Link to="/admin/dashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</Link>
+                        <Link to="/admin/productlist" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Products</Link>
+                        <Link to="/admin/categorylist" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Category</Link>
+                        <Link to="/admin/orderlist" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Orders</Link>
+                        <Link to="/admin/userlist" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Users</Link>
+                      </>
+                    )}
+                    <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</Link>
+                    <button onClick={logoutHandler} className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="flex space-x-2">
+                <Link to="/login" className="text-sm font-medium text-blue-600 hover:text-blue-800">Login</Link>
+                <Link to="/register" className="text-sm font-medium text-blue-600 hover:text-blue-800">Register</Link>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Mobile Navigation Menu */}
+        <div className="flex justify-around py-3 bg-gray-50">
+          <Link to="/" className="flex flex-col items-center text-xs text-gray-600 hover:text-blue-600">
+            <AiOutlineHome size={20} />
+            <span className="mt-1">Home</span>
+          </Link>
+          <Link to="/video-content" className="flex flex-col items-center text-xs text-gray-600 hover:text-blue-600">
+            <FaBook size={20} />
+            <span className="mt-1">Courses</span>
+          </Link>
+          <Link to="/aboutus" className="flex flex-col items-center text-xs text-gray-600 hover:text-blue-600">
+            <PiAddressBook size={20} />
+            <span className="mt-1">About</span>
+          </Link>
+        </div>
       </div>
-    </div>
-  );
+    </>
+   );
 };
 
 export default Navigation;
