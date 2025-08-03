@@ -35,6 +35,8 @@ const corsOptions = {
     "http://localhost:5173",
     "http://localhost:5174",
     "http://localhost:3000",
+    "https://interview-shala.vercel.app",
+    "https://interviewshala.vercel.app",
     process.env.FRONTEND_URL
   ].filter(Boolean), // Remove undefined values
   credentials: true,
