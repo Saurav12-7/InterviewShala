@@ -6,10 +6,10 @@ import "./component.css"
 
 const VideoCard = ({ title, url }) => {
   return (
-    <div className="w-[600px] h-[400px] video-card flex flex-col items-center justify-center bg-pink-600 mb-10 rounded-lg p-4 animation-card">
+    <div className="w-full max-w-[600px] h-auto min-h-[300px] sm:h-[400px] video-card flex flex-col items-center justify-center bg-pink-600 mb-6 sm:mb-10 rounded-lg p-3 sm:p-4 animation-card">
       
-      <ReactPlayer url={url} controls width="500px" height="300px"/>
-      <h2 className='text-lg font-bold video-card-heading text-center'>{title}</h2>
+      <ReactPlayer url={url} controls width="100%" height="auto" style={{ maxWidth: '500px', maxHeight: '300px' }}/>
+      <h2 className='text-sm sm:text-base lg:text-lg font-bold video-card-heading text-center mt-2 sm:mt-3'>{title}</h2>
     </div>
   );
 };

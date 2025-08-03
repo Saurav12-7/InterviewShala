@@ -45,14 +45,14 @@ const Navigation = () => {
 
   return (
     <>
-      {/* Desktop Sidebar - Hidden on mobile */}
-      <div
-        style={{ zIndex: 9999 }}
-        className={`${
-          showSidebar ? "hidden" : "hidden"
-        } xl:flex lg:flex md:hidden sm:hidden flex-col justify-between p-2 sm:p-4 text-white bg-[#000] w-[4%] hover:w-[15%] h-[100vh] fixed transition-all duration-300`}
-        id="navigation-container"
-      >
+             {/* Desktop Sidebar - Completely hidden on mobile */}
+       <div
+         style={{ zIndex: 9999 }}
+         className={`${
+           showSidebar ? "hidden" : "hidden"
+         } xl:flex lg:flex md:hidden sm:hidden flex-col justify-between p-2 sm:p-4 text-white bg-[#000] w-[4%] hover:w-[15%] h-[100vh] fixed transition-all duration-300`}
+         id="navigation-container"
+       >
       <div className="flex flex-col justify-center space-y-4">
         <Link
           to="/"
@@ -217,13 +217,13 @@ const Navigation = () => {
        </div>
      </div>
 
-      {/* Mobile Header - Visible on mobile */}
-      <div className="xl:hidden lg:hidden md:flex sm:flex flex-col bg-white shadow-md">
+             {/* Mobile Header - Visible on mobile */}
+       <div className="xl:hidden lg:hidden md:flex sm:flex flex-col bg-white shadow-md fixed top-0 left-0 right-0 z-50">
         <div className="flex items-center justify-between p-4 border-b">
-          <div className="flex items-center">
-            <img src="/images/logo.png" alt="InterviewShala" className="h-8 w-auto" />
-            <span className="ml-2 text-lg font-bold text-gray-800">InterviewShala</span>
-          </div>
+                     <div className="flex items-center">
+             <img src="/images/logo.png" alt="InterviewShala" className="h-6 sm:h-8 w-auto" />
+             <span className="ml-2 text-sm sm:text-lg font-bold text-gray-800 truncate">InterviewShala</span>
+           </div>
           
           <div className="flex items-center space-x-4">
             {userInfo ? (
@@ -276,8 +276,8 @@ const Navigation = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation Menu */}
-        <div className="flex justify-around py-3 bg-gray-50">
+                 {/* Mobile Navigation Menu */}
+         <div className="flex justify-around py-2 sm:py-3 bg-gray-50">
           <Link to="/" className="flex flex-col items-center text-xs text-gray-600 hover:text-blue-600">
             <AiOutlineHome size={20} />
             <span className="mt-1">Home</span>

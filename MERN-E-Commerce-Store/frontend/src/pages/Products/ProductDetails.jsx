@@ -100,7 +100,7 @@ const ProductDetails = () => {
                 {product.description}
               </p>
 
-              <p className="text-5xl my-4 font-extrabold">$ {product.price}</p>
+                              <p className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl my-4 font-extrabold">$ {product.price}</p>
 
               <div className="flex items-center justify-between w-[20rem]">
                 <div className="one">

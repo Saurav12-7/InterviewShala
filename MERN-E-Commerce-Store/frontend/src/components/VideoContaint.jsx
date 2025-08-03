@@ -53,11 +53,11 @@ const VideoCollectionPage = () => {
     <div>
       <Offer />
       
-      <h1 className="text-5xl font-bold text-center leading-snug ">
+      <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-center leading-snug mb-6 sm:mb-8">
                   Free Video Course
       </h1>
       
-      <div className="video-list ml-[10rem] grid grid-cols-2 items-center">
+      <div className="video-list px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 items-center gap-4 sm:gap-6">
         {videoData.map((video) => (
           <VideoCard key={video.id} title={video.title} url={video.url} />
         ))}

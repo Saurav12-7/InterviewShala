@@ -131,7 +131,7 @@ const DummyQuiz = () => {
             {/* Results Header */}
             <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-8 mb-8 text-center">
               <h1 className="text-3xl font-bold text-gray-900 mb-4">Quiz Results</h1>
-              <div className="text-6xl font-bold text-blue-600 mb-4">
+              <div className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-blue-600 mb-4">
                 {score}/{questions.length}
               </div>
               <div className="text-xl text-gray-700 mb-6">

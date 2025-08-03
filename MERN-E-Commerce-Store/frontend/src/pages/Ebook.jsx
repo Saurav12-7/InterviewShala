@@ -63,7 +63,7 @@ const PdfCollectionPage = () => {
     <div>
       <Offer />
       
-      <h1 className="text-5xl font-bold text-center leading-snug ">
+      <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-center leading-snug mb-6 sm:mb-8">
         Free PDF Content
       </h1>
       
