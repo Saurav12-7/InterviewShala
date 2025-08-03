@@ -8,7 +8,7 @@ const App = () => {
     <>
       <ToastContainer />
       <Navigation />
-      <main className="py-3">
+      <main className="py-3 px-4 sm:px-6 lg:px-8">
         <Outlet />
       </main>
     </>

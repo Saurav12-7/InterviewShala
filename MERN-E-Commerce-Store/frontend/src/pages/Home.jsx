@@ -84,14 +84,16 @@ const { data, isLoading, isError, error } = useGetProductsQuery({ keyword });
 ) : (
         <>
           <Offer />
-          <div className="container mx-auto ml-40 mt-10">
-            <div className="container flex w-[1200px] justify-between items-center">
-              <div className="flex flex-col gap-2 items-start w-[40rem]">
-                <div className="logo w-[18rem]">
-                  <img src="/images/logo.png" alt="InterviewShala Logo" />
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 mt-6 sm:mt-10">
+            <div className="flex flex-col lg:flex-row justify-between items-center gap-8 lg:gap-12">
+              <div className="flex flex-col gap-4 items-start w-full lg:w-1/2">
+                <div className="logo w-full max-w-[18rem]">
+                  <img src="/images/logo.png" alt="InterviewShala Logo" className="w-full h-auto" />
                 </div>
-                <h1 className="text-[3rem] "><b>Welcome to InterviewShala</b></h1>
-                <p className="text-xl w-[39rem]">
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight">
+                  Welcome to InterviewShala
+                </h1>
+                <p className="text-base sm:text-lg lg:text-xl text-gray-600 leading-relaxed">
                   InterviewShala is a Best remote Mock Interview Platform where
                   you kickstart your future, and we give you the best mock
                   interview in India.
@@ -99,22 +101,22 @@ const { data, isLoading, isError, error } = useGetProductsQuery({ keyword });
 
                 <Link
                   to="/register"
-                  className="bg-blue-600 font-bold rounded-full py-2 px-10 mt-3 ml-[28rem] text-white"
+                  className="bg-blue-600 hover:bg-blue-700 font-bold rounded-full py-3 px-8 sm:px-10 mt-4 text-white transition duration-300 transform hover:scale-105"
                 >
                   Start Now
                 </Link>
               </div>
-              <div>
-                <img src="/images/headerImg.png" alt="Header Image" />
+              <div className="w-full lg:w-1/2 flex justify-center">
+                <img src="/images/headerImg.png" alt="Header Image" className="w-full max-w-md lg:max-w-lg xl:max-w-xl h-auto" />
               </div>
             </div>
-            <div className="w-[1200px]" >
-              <div  className="container mx-auto w-full flex flex-col items-center">
-                <h1 className="text-5xl font-bold text-center">
+            <div className="w-full mt-16 sm:mt-20">
+              <div className="flex flex-col items-center">
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-center mb-8 sm:mb-12">
                   Our Featured Courses
                 </h1>
                 {/* Card */}
-                <div className="grid grid-cols-2 gap-32 mt-10" id="#course">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 xl:gap-16 w-full max-w-6xl" id="#course">
 
                 {products.map((product)=>(
                  <ProductCard key={product.title} product={product}/>

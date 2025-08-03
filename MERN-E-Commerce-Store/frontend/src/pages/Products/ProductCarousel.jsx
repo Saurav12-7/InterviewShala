@@ -36,7 +36,7 @@ const ProductCarousel = () => {
       ) : (
         <Slider
           {...settings}
-          className="xl:w-[50rem]  lg:w-[50rem] md:w-[56rem] sm:w-[40rem] sm:block"
+          className="w-full max-w-4xl mx-auto"
         >
           {products.map(
             ({
@@ -56,19 +56,19 @@ const ProductCarousel = () => {
                 <img
                   src={getImageUrl(image)}
                   alt={name}
-                  className="w-full rounded-lg object-cover h-[30rem]"
+                  className="w-full rounded-lg object-cover h-[20rem] sm:h-[25rem] lg:h-[30rem]"
                 />
 
-                <div className="mt-4 flex justify-between">
+                <div className="mt-4 flex flex-col lg:flex-row justify-between gap-4">
                   <div className="one">
-                    <h2>{name}</h2>
-                    <p> $ {price}</p> <br /> <br />
-                    <p className="w-[25rem]">
+                    <h2 className="text-lg sm:text-xl font-bold">{name}</h2>
+                    <p className="text-lg font-semibold text-green-600"> $ {price}</p>
+                    <p className="text-sm sm:text-base text-gray-600 mt-2 max-w-full lg:max-w-[25rem]">
                       {description.substring(0, 170)} ...
                     </p>
                   </div>
 
-                  <div className="flex justify-between w-[20rem]">
+                  <div className="flex flex-col sm:flex-row lg:flex-col justify-between gap-4 w-full lg:w-[20rem]">
                     <div className="one">
                       <h1 className="flex items-center mb-6">
                         <FaStore className="mr-2 text-white" /> Brand: {brand}

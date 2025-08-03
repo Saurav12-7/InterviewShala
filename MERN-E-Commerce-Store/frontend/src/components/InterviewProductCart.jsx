@@ -46,29 +46,29 @@ const ProductCard = ({ title, image, description, price }) => {
   };
 
   return (
-    <div className="container w-[500px] h-[500px] bg-blue-50 rounded-lg px-6 py-4 hover:scale-105 transition-all delay-0">
-      <div className="container w-full h-full flex flex-col items-center rounded-md">
-        <div className="w-[26rem] h-[15rem] my-2 hover:scale-95 transition-all delay-0 ease-in cursor-pointer border-4 rounded-md border-white">
+    <div className="w-full max-w-[500px] h-auto min-h-[500px] bg-blue-50 rounded-lg px-4 sm:px-6 py-4 hover:scale-105 transition-all delay-0">
+      <div className="w-full h-full flex flex-col items-center rounded-md">
+        <div className="w-full max-w-[26rem] h-[12rem] sm:h-[15rem] my-2 hover:scale-95 transition-all delay-0 ease-in cursor-pointer border-4 rounded-md border-white">
           <img
             src={getImageUrl(image)}
             alt={`Product Image for ₹${title}`}
-            className="h-full w-full aspect-[3/4] object-cover rounded-md"
+            className="h-full w-full object-cover rounded-md"
           />
         </div>
-        <div className="flex flex-col text-center gap-1">
-          <h2 className="text-lg font-bold text-center cursor-pointer">
+        <div className="flex flex-col text-center gap-1 px-2">
+          <h2 className="text-base sm:text-lg font-bold text-center cursor-pointer">
             {title}
           </h2>
-          <p className="text-sm text-gray-600">{description}</p>
+          <p className="text-xs sm:text-sm text-gray-600">{description}</p>
         </div>
         <div className="flex flex-col items-center my-3">
           <StarRating rating={4} />
-          <p className="text-xl font-bold">₹{price}</p>
+          <p className="text-lg sm:text-xl font-bold">₹{price}</p>
         </div>
 
         <div className="flex items-center gap-3">
           <button
-            className="bg-pink-600 text-white px-4 py-2 rounded-full hover:bg-pink-700 transition-colors"
+            className="bg-pink-600 text-white px-3 sm:px-4 py-2 rounded-full hover:bg-pink-700 transition-colors text-sm sm:text-base"
             onClick={handleAddToCart}
           >
             Add to Cart ₹{price}
@@ -83,9 +83,9 @@ const InterviewProductCart = () => {
   return (
     <div>
       <Offer/>
-      <div className="product-list flex flex-col items-center justify-center gap-8 w-[100vw] h-[100vh] container mx-auto">
-        <h1 className="text-6xl font-semibold m-0">Mock Interview</h1>
-        <div className="flex items-center gap-14">
+      <div className="product-list flex flex-col items-center justify-center gap-8 w-full min-h-screen px-4 py-8 container mx-auto">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-semibold text-center mb-4">Mock Interview</h1>
+        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-14 w-full max-w-6xl">
           <ProductCard
             title="Mock Interview for College Entrance"
             image="/images/InterviewproductCart111.png"

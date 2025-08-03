@@ -66,9 +66,9 @@ const Cart = () => {
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 lg:gap-8">
             {/* Cart Items Section */}
-            <div className="lg:col-span-2">
+            <div className="xl:col-span-2">
               <div className="bg-white rounded-lg shadow-lg p-6">
                 <h2 className="text-xl font-semibold text-gray-800 mb-6 flex items-center">
                   <FaShoppingCart className="w-5 h-5 mr-2 text-pink-500" />
@@ -77,7 +77,7 @@ const Cart = () => {
 
                 <div className="space-y-4">
                   {cartItems.map((item) => (
-                    <div key={item._id} className="flex items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition duration-200">
+                    <div key={item._id} className="flex flex-col sm:flex-row items-start sm:items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition duration-200 gap-4">
                       {/* Product Image */}
                       <div className="w-20 h-20 flex-shrink-0">
                         <img
@@ -88,23 +88,23 @@ const Cart = () => {
                       </div>
 
                       {/* Product Details */}
-                      <div className="flex-1 ml-4">
+                      <div className="flex-1 min-w-0">
                         <Link 
                           to={`/product/${item._id}`} 
-                          className="text-lg font-medium text-blue-600 hover:text-blue-800 transition duration-200 break-words"
+                          className="text-base sm:text-lg font-medium text-blue-600 hover:text-blue-800 transition duration-200 break-words"
                         >
                           {item.name}
                         </Link>
                         {item.brand && (
                           <div className="text-sm text-gray-600 mt-1">{item.brand}</div>
                         )}
-                        <div className="text-lg font-bold text-green-600 mt-2">
+                        <div className="text-base sm:text-lg font-bold text-green-600 mt-2">
                           ${item.price.toFixed(2)}
                         </div>
                       </div>
 
                       {/* Quantity Selector */}
-                      <div className="flex items-center space-x-4">
+                      <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
                         <div className="flex flex-col items-center">
                           <label className="text-sm font-medium text-gray-700 mb-2">Quantity</label>
                           <select
@@ -144,8 +144,8 @@ const Cart = () => {
             </div>
 
             {/* Order Summary Section */}
-            <div className="lg:col-span-1">
-              <div className="bg-white rounded-lg shadow-lg p-6 sticky top-8">
+            <div className="xl:col-span-1">
+              <div className="bg-white rounded-lg shadow-lg p-6 lg:sticky lg:top-8">
                 <h2 className="text-xl font-semibold text-gray-800 mb-6">Order Summary</h2>
                 
                 <div className="space-y-4">
