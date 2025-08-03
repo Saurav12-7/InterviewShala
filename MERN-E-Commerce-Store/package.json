@@ -8,7 +8,10 @@
     "backend": "nodemon backend/index.js",
     "frontend": "npm run dev --prefix frontend",
     "dev": "concurrently \"npm run frontend\" \"npm run backend\"",
-    "start": "npm run dev"
+    "start": "npm run dev",
+    "build": "npm run build --prefix frontend",
+    "build:frontend": "npm run build --prefix frontend",
+    "build:backend": "echo 'Backend build not required - Node.js runtime'"
   },
   "keywords": [],
   "author": "vaibhaw Kumar",
