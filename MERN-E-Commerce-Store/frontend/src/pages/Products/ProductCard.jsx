@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/features/cart/cartSlice";
 import { toast } from "react-toastify";
 import HeartIcon from "./HeartIcon";
+import { getImageUrl } from "../../Utils/imageUtils";
 
 const ProductCard = ({ p }) => {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ const ProductCard = ({ p }) => {
           </span>
           <img
             className="cursor-pointer w-full"
-            src={p.image}
+            src={getImageUrl(p.image)}
             alt={p.name}
             style={{ height: "170px", objectFit: "cover" }}
           />
