@@ -7,8 +7,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "build": "npm run build --prefix ../frontend",
-    "postinstall": "npm run build --prefix ../frontend"
+    "build": "cd ../frontend && npm install && npm run build",
+    "postinstall": "cd ../frontend && npm install && npm run build"
   },
   "keywords": [
     "nodejs",
