@@ -35,7 +35,7 @@ const PlaceOrder = () => {
       if (cart.paymentMethod === "Stripe") {
         // Create Stripe checkout session for each cart item
         for (const item of cart.cartItems) {
-          const response = await fetch("http://localhost:8000/api/stripe/create-checkout-session", {
+          const response = await fetch("/api/stripe/create-checkout-session", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

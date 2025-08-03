@@ -17,7 +17,7 @@ const Mocktestdiscriptions = () => {
     }else{
       
       console.log('working')
-      window.location.href = `http://localhost:3001/`;
+      window.location.href = `${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/mock-test-1`;
     }
     
    

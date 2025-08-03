@@ -17,7 +17,7 @@ const Mocktestdiscriptions = () => {
     }else{
       
       console.log('working')
-      window.location.href = "http://localhost:3004/";
+      window.location.href = `${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/mock-interview`;
       // window.location.href = `https://calendly.com/interviewshala/30min`;
     }
     

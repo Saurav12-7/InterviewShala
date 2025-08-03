@@ -64,6 +64,9 @@ app.get("/api/config/paypal", (req, res) => {
 const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname + "/uploads")));
 
+// Serve static files from the React app build
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
+
 // Global error handler
 app.use((err, req, res, next) => {
   console.error('Global error handler:', err);
@@ -73,9 +76,9 @@ app.use((err, req, res, next) => {
   });
 });
 
-// 404 handler
-app.use('*', (req, res) => {
-  res.status(404).json({ error: 'Route not found' });
+// Handle React routing, return all requests to React app
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/dist', 'index.html'));
 });
 
 const server = app.listen(port, () => console.log(`Server running on port: ${port}`));

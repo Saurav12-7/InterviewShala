@@ -16,7 +16,7 @@ try {
   stripe = {
     checkout: {
       sessions: {
-        create: async () => ({ url: "http://localhost:5173/payment-error" })
+        create: async () => ({ url: `${process.env.FRONTEND_URL || "http://localhost:5173"}/payment-error` })
       }
     },
     customers: {

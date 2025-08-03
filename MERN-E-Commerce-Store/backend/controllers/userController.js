@@ -192,8 +192,8 @@ const forgotPassword = asyncHandler(async (req, res) => {
   await user.save();
 
   // For development/testing - simulate email sending
-  // Always use localhost for development, regardless of FRONTEND_URL setting
-  const resetUrl = `http://localhost:5174/reset-password/${resetToken}`;
+  // Use environment variable for production, fallback to localhost for development
+const resetUrl = `${process.env.FRONTEND_URL || "http://localhost:5174"}/reset-password/${resetToken}`;
   
   // Always try to send email (for development, we'll use a test email service)
   try {
