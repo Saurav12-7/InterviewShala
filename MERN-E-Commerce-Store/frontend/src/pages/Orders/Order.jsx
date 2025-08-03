@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Messsage from "../../components/Message";
 import Loader from "../../components/Loader";
+import { getImageUrl } from "../../Utils/imageUtils";
 import {
   useDeliverOrderMutation,
   useGetOrderDetailsQuery,
@@ -118,7 +119,7 @@ const Order = () => {
                       <tr key={index} className="hover:bg-gray-50">
                         <td className="px-4 py-4">
                           <img
-                            src={item.image}
+                            src={getImageUrl(item.image)}
                             alt={item.name}
                             className="w-16 h-16 object-cover rounded-lg"
                           />

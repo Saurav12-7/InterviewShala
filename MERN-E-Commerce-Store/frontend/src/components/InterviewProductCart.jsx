@@ -88,13 +88,13 @@ const InterviewProductCart = () => {
         <div className="flex items-center gap-14">
           <ProductCard
             title="Mock Interview for College Entrance"
-            image="/images/InterviewProductCart111.png"
+            image="/images/InterviewproductCart111.png"
             description="Many colleges and universities require applicants to participate in an interview as part of the admissions process."
             price={99}
           />
           <ProductCard
             title="Mock interview for Job"
-            image="/images/InterviewProductCart222.png"
+            image="/images/InterviewproductCart222.png"
             description="Job interviews are a standard part of the hiring process."
             price={99}
           />

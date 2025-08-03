@@ -6,6 +6,7 @@ import Message from "../../components/Message";
 import ProgressSteps from "../../components/ProgressSteps";
 import { clearCartItems } from "../../redux/features/cart/cartSlice";
 import { useCreateOrderMutation } from "../../redux/api/orderApiSlice";
+import { getImageUrl } from "../../Utils/imageUtils";
 
 const PlaceOrder = () => {
   const navigate = useNavigate();
@@ -113,7 +114,7 @@ const PlaceOrder = () => {
                         <tr key={index} className="hover:bg-gray-50">
                           <td className="px-4 py-4">
                             <img
-                              src={item.image}
+                              src={getImageUrl(item.image)}
                               alt={item.name}
                               className="w-16 h-16 object-cover rounded-lg"
                             />

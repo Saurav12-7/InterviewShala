@@ -100,7 +100,7 @@ const TestProductCart = () => {
           />
           <ProductCard
             title="Mock test for College Entrance"
-            image="/images/Mock Test4.jpg"
+            image="/images/mock test4.jpg"
             description="Practice test covering all major topics for college entrance exams with detailed explanations."
             price={99}
           />
@@ -112,13 +112,13 @@ const TestProductCart = () => {
           />
           <ProductCard
             title="Mock test for CUET Entrance"
-            image="/images/InterviewProductCart111.png"
+            image="/images/InterviewproductCart111.png"
             description="CUET (Common University Entrance Test) mock test with comprehensive coverage of all subjects."
             price={99}
           />
           <ProductCard
             title="Mock interview for Job"
-            image="/images/InterviewProductCart222.png"
+            image="/images/InterviewproductCart222.png"
             description="Professional mock interview session to help you prepare for job interviews and improve your skills."
             price={99}
           />
