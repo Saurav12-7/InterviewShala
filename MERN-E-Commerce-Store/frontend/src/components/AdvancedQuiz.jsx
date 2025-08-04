@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import Footer from './Footer';
-import Offer from './Offer';
+
 
 const AdvancedQuiz = ({ quizId }) => {
   const { user } = useSelector((state) => state.auth);
@@ -122,7 +122,6 @@ const AdvancedQuiz = ({ quizId }) => {
   if (loading) {
     return (
       <div>
-        <Offer />
         <div className="min-h-screen bg-gray-50 flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
@@ -137,7 +136,6 @@ const AdvancedQuiz = ({ quizId }) => {
   if (!quiz) {
     return (
       <div>
-        <Offer />
         <div className="min-h-screen bg-gray-50 flex items-center justify-center">
           <div className="text-center">
             <p className="text-red-600">Quiz not found</p>
@@ -151,7 +149,6 @@ const AdvancedQuiz = ({ quizId }) => {
   if (showResults) {
     return (
       <div>
-        <Offer />
         <div className="min-h-screen bg-gray-50 py-8">
           <div className="max-w-4xl mx-auto px-4">
             <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-8">
@@ -212,7 +209,6 @@ const AdvancedQuiz = ({ quizId }) => {
 
   return (
     <div>
-      <Offer />
       <div className="min-h-screen bg-gray-50 py-8">
         <div className="max-w-4xl mx-auto px-4">
           {/* Quiz Header */}

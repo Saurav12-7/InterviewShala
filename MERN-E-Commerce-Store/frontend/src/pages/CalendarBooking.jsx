@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { InlineWidget } from "react-calendly";
 import Footer from '../components/Footer';
-import Offer from '../components/Offer';
+
 
 const CalendarBooking = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -12,7 +12,6 @@ const CalendarBooking = () => {
 
   return (
     <div>
-      <Offer />
       <div className="min-h-screen bg-gray-50 py-8">
         <div className="max-w-4xl mx-auto px-4">
           {/* Success Message */}

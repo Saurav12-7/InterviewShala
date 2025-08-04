@@ -1,6 +1,6 @@
 // VideoCollectionPage.js
 import React from 'react';
-import Offer from './Offer';
+
 import Footer from './Footer';
 import VideoCard from './VideoCard'; // Assuming you have a VideoCard component
 
@@ -48,12 +48,10 @@ const videoData = [
 
 ];
 
-const VideoCollectionPage = () => {
-  return (
-    <div>
-      <Offer />
-      
-      <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-center leading-snug mb-6 sm:mb-8">
+ const VideoCollectionPage = () => {
+   return (
+     <div>
+       <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-center leading-snug mb-6 sm:mb-8">
                   Free Video Course
       </h1>
       

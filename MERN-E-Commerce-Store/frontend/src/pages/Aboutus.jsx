@@ -1,7 +1,7 @@
 // Aboutus.jsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Offer from "../components/Offer";
+
 import Footer from "../components/Footer";
 
 const Aboutus = () => {
@@ -18,10 +18,8 @@ const Aboutus = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <Offer/>
-      
-      {/* Hero Section */}
+         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+       {/* Hero Section */}
       <div className="relative py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">

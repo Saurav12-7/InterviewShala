@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Footer from '../components/Footer';
-import Offer from '../components/Offer';
+
 
 const Mocktestdiscriptions = () => {
   const [isChecked, setIsChecked] = useState(false);
@@ -26,8 +26,7 @@ const Mocktestdiscriptions = () => {
 
   return (
     <div>
-      <Offer />
-      <div className='block p-10 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 m-10 w-2/4 p-4 mx-auto text-center border'>
+             <div className='block p-4 sm:p-6 lg:p-10 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 m-4 sm:m-6 lg:m-10 w-full max-w-2xl mx-auto text-center border'>
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Mock Interview Instructions</h5>
         <div className={`font-normal text-gray-700 dark:text-gray-400 text-left mb-10`}>
          

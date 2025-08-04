@@ -12,7 +12,7 @@ import {
   faDiscord,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
-import Offer from "../components/Offer";
+
 import ProductCard from "../components/productCard/ProductCard";
 import Footer from "../components/Footer";
 // import NewPage from "../components/VideoContaint";
@@ -82,9 +82,8 @@ const { data, isLoading, isError, error } = useGetProductsQuery({ keyword });
     {error?.data?.message || error?.error || "Something went wrong"}
   </Message>
 ) : (
-        <>
-          <Offer />
-          <div className="container mx-auto px-2 sm:px-4 lg:px-8 mt-4 sm:mt-6 lg:mt-10">
+                 <>
+           <div className="container mx-auto px-2 sm:px-4 lg:px-8 mt-4 sm:mt-6 lg:mt-10">
             <div className="flex flex-col lg:flex-row justify-between items-center gap-6 sm:gap-8 lg:gap-12">
               <div className="flex flex-col gap-3 sm:gap-4 items-start w-full lg:w-1/2 text-center lg:text-left">
                 <div className="logo w-full max-w-[12rem] sm:max-w-[15rem] lg:max-w-[18rem] mx-auto lg:mx-0">

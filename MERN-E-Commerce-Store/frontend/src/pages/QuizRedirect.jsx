@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Footer from '../components/Footer';
-import Offer from '../components/Offer';
+
 
 const QuizRedirect = () => {
   const [countdown, setCountdown] = useState(5);
@@ -22,7 +22,6 @@ const QuizRedirect = () => {
 
   return (
     <div>
-      <Offer />
       <div className="min-h-screen bg-gray-50 py-8">
         <div className="max-w-4xl mx-auto px-4">
           {/* Success Message */}
