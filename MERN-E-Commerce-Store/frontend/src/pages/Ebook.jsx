@@ -1,7 +1,8 @@
 import React from 'react';
 
 import Footer from '../components/Footer';
-import PdfCard from '../components/PdfCard'; 
+import PdfCard from '../components/PdfCard';
+import Offer from '../components/Offer'; 
 
 const pdfData = [
   {
@@ -61,6 +62,7 @@ const pdfData = [
 const PdfCollectionPage = () => {
      return (
      <div>
+       <Offer />
        <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-center leading-snug mb-6 sm:mb-8">
         Free PDF Content
       </h1>

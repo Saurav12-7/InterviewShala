@@ -3,6 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import Footer from "../components/Footer";
+import Offer from "../components/Offer";
 
 const Aboutus = () => {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const Aboutus = () => {
 
   return (
          <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+       <Offer />
        {/* Hero Section */}
       <div className="relative py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">

@@ -15,6 +15,7 @@ import {
 
 import ProductCard from "../components/productCard/ProductCard";
 import Footer from "../components/Footer";
+import Offer from "../components/Offer";
 // import NewPage from "../components/VideoContaint";
 import { AiOutlineBgColors } from "react-icons/ai";
 
@@ -83,6 +84,7 @@ const { data, isLoading, isError, error } = useGetProductsQuery({ keyword });
   </Message>
 ) : (
                  <>
+           <Offer />
            <div className="container mx-auto px-2 sm:px-4 lg:px-8 mt-4 sm:mt-6 lg:mt-10">
             <div className="flex flex-col lg:flex-row justify-between items-center gap-6 sm:gap-8 lg:gap-12">
               <div className="flex flex-col gap-3 sm:gap-4 items-start w-full lg:w-1/2 text-center lg:text-left">
