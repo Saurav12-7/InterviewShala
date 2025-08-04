@@ -27,9 +27,10 @@ const ForgotPassword = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setMessage(data.message);
         if (data.development && data.resetUrl) {
           setMessage(`${data.message} Click here to reset: ${data.resetUrl}`);
+        } else {
+          setMessage(data.message);
         }
         setEmail('');
       } else {

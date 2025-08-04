@@ -195,20 +195,35 @@ const forgotPassword = asyncHandler(async (req, res) => {
   // Use environment variable for production, fallback to localhost for development
 const resetUrl = `${process.env.FRONTEND_URL || "http://localhost:5174"}/reset-password/${resetToken}`;
   
-  // Always try to send email (for development, we'll use a test email service)
+  // Check if email configuration is available
+  const emailUser = process.env.EMAIL_USER;
+  const emailPass = process.env.EMAIL_PASS;
+  
+  if (!emailUser || !emailPass) {
+    // Email not configured - return reset URL for manual use
+    console.log("Email not configured. Password reset URL:", resetUrl);
+    res.status(200).json({ 
+      message: "Password reset link generated successfully! Since email is not configured, please use this link:",
+      resetUrl: resetUrl,
+      development: true
+    });
+    return;
+  }
+
+  // Try to send email
   try {
     // Create email transporter using Gmail
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-        user: process.env.EMAIL_USER || "your-email@gmail.com",
-        pass: process.env.EMAIL_PASS || "your-app-password",
+        user: emailUser,
+        pass: emailPass,
       },
     });
 
     // Email content
     const mailOptions = {
-      from: process.env.EMAIL_USER || "your-email@gmail.com",
+      from: emailUser,
       to: email,
       subject: "Password Reset Request - InterviewShala",
       html: `
@@ -233,10 +248,10 @@ const resetUrl = `${process.env.FRONTEND_URL || "http://localhost:5174"}/reset-p
   } catch (error) {
     console.error("Email sending error:", error);
     
-    // If email fails, still return the reset URL for development
-    console.log("Password reset URL (for development):", resetUrl);
+    // If email fails, return the reset URL for manual use
+    console.log("Email sending failed. Password reset URL:", resetUrl);
     res.status(200).json({ 
-      message: "Email could not be sent, but here's your reset link for development:",
+      message: "Email could not be sent due to configuration issues. Please use this reset link:",
       resetUrl: resetUrl,
       development: true
     });
