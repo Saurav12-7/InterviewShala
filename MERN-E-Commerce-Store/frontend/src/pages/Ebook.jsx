@@ -59,21 +59,23 @@ const pdfData = [
 
 ];
 
-const PdfCollectionPage = () => {
-     return (
-     <div>
-       <Offer />
-       <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-center leading-snug mb-6 sm:mb-8">
-        Free PDF Content
-      </h1>
+ const PdfCollectionPage = () => {
+      return (
+      <div className="min-h-screen bg-gray-50">
+        <Offer />
+        <div className="container mx-auto py-6 sm:py-8 lg:py-12">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-center leading-snug mb-6 sm:mb-8 lg:mb-12 text-gray-800">
+         Free PDF Content
+       </h1>
       
-             <div className="pdf-list px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 items-center gap-4 sm:gap-6">
+                           <div className="pdf-list px-2 sm:px-4 lg:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 items-start gap-3 sm:gap-4 lg:gap-6 max-w-7xl mx-auto">
         {pdfData.map((pdf) => (
           <PdfCard key={pdf.id} title={pdf.title} url={pdf.url} />
-        ))}
-      </div>
-      <Footer />
-    </div>
+                 ))}
+       </div>
+       </div>
+       <Footer />
+     </div>
   );
 };
 
