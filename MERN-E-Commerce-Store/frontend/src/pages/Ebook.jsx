@@ -67,7 +67,7 @@ const PdfCollectionPage = () => {
         Free PDF Content
       </h1>
       
-      <div className="pdf-list ml-[10rem] grid grid-cols-2 items-center">
+             <div className="pdf-list px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 items-center gap-4 sm:gap-6">
         {pdfData.map((pdf) => (
           <PdfCard key={pdf.id} title={pdf.title} url={pdf.url} />
         ))}

@@ -5,6 +5,8 @@ import {
   AiOutlineLogin,
   AiOutlineUserAdd,
   AiOutlineShoppingCart,
+  AiOutlineMenu,
+  AiOutlineClose,
 } from "react-icons/ai";
 import { PiAddressBook } from "react-icons/pi";
 import { FaHeart, FaBook } from "react-icons/fa";
@@ -23,9 +25,14 @@ const Navigation = () => {
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
+  };
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
   };
 
   const dispatch = useDispatch();
@@ -217,81 +224,131 @@ const Navigation = () => {
        </div>
      </div>
 
-             {/* Mobile Header - Visible on mobile */}
+                    {/* Mobile Header - Visible on mobile */}
        <div className="xl:hidden lg:hidden md:flex sm:flex flex-col bg-white shadow-md fixed top-0 left-0 right-0 z-50">
-        <div className="flex items-center justify-between p-4 border-b">
-                     <div className="flex items-center">
+         <div className="flex items-center justify-between p-4 border-b">
+           {/* Hamburger Menu Button */}
+           <button
+             onClick={toggleMobileMenu}
+             className="p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
+           >
+             {mobileMenuOpen ? (
+               <AiOutlineClose className="h-6 w-6" />
+             ) : (
+               <AiOutlineMenu className="h-6 w-6" />
+             )}
+           </button>
+
+           {/* Logo and Title */}
+           <div className="flex items-center">
              <img src="/images/logo.png" alt="InterviewShala" className="h-6 sm:h-8 w-auto" />
              <span className="ml-2 text-sm sm:text-lg font-bold text-gray-800 truncate">InterviewShala</span>
            </div>
-          
-          <div className="flex items-center space-x-4">
-            {userInfo ? (
-              <div className="relative">
-                <button
-                  onClick={toggleDropdown}
-                  className="flex items-center text-gray-700 focus:outline-none"
-                >
-                  <span className="text-sm font-medium">{userInfo.username}</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className={`h-4 w-4 ml-1 ${
-                      dropdownOpen ? "transform rotate-180" : ""
-                    }`}
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d={dropdownOpen ? "M5 15l7-7 7 7" : "M19 9l-7 7-7-7"}
-                    />
-                  </svg>
-                </button>
+           
+           {/* User Menu */}
+           <div className="flex items-center space-x-4">
+             {userInfo ? (
+               <div className="relative">
+                 <button
+                   onClick={toggleDropdown}
+                   className="flex items-center text-gray-700 focus:outline-none"
+                 >
+                   <span className="text-sm font-medium">{userInfo.username}</span>
+                   <svg
+                     xmlns="http://www.w3.org/2000/svg"
+                     className={`h-4 w-4 ml-1 ${
+                       dropdownOpen ? "transform rotate-180" : ""
+                     }`}
+                     fill="none"
+                     viewBox="0 0 24 24"
+                     stroke="currentColor"
+                   >
+                     <path
+                       strokeLinecap="round"
+                       strokeLinejoin="round"
+                       strokeWidth="2"
+                       d={dropdownOpen ? "M5 15l7-7 7 7" : "M19 9l-7 7-7-7"}
+                     />
+                   </svg>
+                 </button>
 
-                {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
-                    {userInfo.isAdmin && (
-                      <>
-                        <Link to="/admin/dashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</Link>
-                        <Link to="/admin/productlist" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Products</Link>
-                        <Link to="/admin/categorylist" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Category</Link>
-                        <Link to="/admin/orderlist" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Orders</Link>
-                        <Link to="/admin/userlist" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Users</Link>
-                      </>
-                    )}
-                    <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</Link>
-                    <button onClick={logoutHandler} className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</button>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div className="flex space-x-2">
-                <Link to="/login" className="text-sm font-medium text-blue-600 hover:text-blue-800">Login</Link>
-                <Link to="/register" className="text-sm font-medium text-blue-600 hover:text-blue-800">Register</Link>
-              </div>
-            )}
-          </div>
-        </div>
+                 {dropdownOpen && (
+                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                     {userInfo.isAdmin && (
+                       <>
+                         <Link to="/admin/dashboard" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</Link>
+                         <Link to="/admin/productlist" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Products</Link>
+                         <Link to="/admin/categorylist" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Category</Link>
+                         <Link to="/admin/orderlist" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Orders</Link>
+                         <Link to="/admin/userlist" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Users</Link>
+                       </>
+                     )}
+                     <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</Link>
+                     <button onClick={logoutHandler} className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</button>
+                   </div>
+                 )}
+               </div>
+             ) : (
+               <div className="flex space-x-2">
+                 <Link to="/login" className="text-sm font-medium text-blue-600 hover:text-blue-800">Login</Link>
+                 <Link to="/register" className="text-sm font-medium text-blue-600 hover:text-blue-800">Register</Link>
+               </div>
+             )}
+           </div>
+         </div>
 
-                 {/* Mobile Navigation Menu */}
-         <div className="flex justify-around py-2 sm:py-3 bg-gray-50">
-          <Link to="/" className="flex flex-col items-center text-xs text-gray-600 hover:text-blue-600">
-            <AiOutlineHome size={20} />
-            <span className="mt-1">Home</span>
-          </Link>
-          <Link to="/video-content" className="flex flex-col items-center text-xs text-gray-600 hover:text-blue-600">
-            <FaBook size={20} />
-            <span className="mt-1">Courses</span>
-          </Link>
-          <Link to="/aboutus" className="flex flex-col items-center text-xs text-gray-600 hover:text-blue-600">
-            <PiAddressBook size={20} />
-            <span className="mt-1">About</span>
-          </Link>
-        </div>
-      </div>
+         {/* Mobile Hamburger Menu - Slide down from top */}
+         {mobileMenuOpen && (
+           <div className="bg-white border-t border-gray-200 shadow-lg">
+             <div className="px-2 pt-2 pb-3 space-y-1">
+               <Link
+                 to="/"
+                 onClick={() => setMobileMenuOpen(false)}
+                 className="flex items-center px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md"
+               >
+                 <AiOutlineHome className="mr-3 h-5 w-5" />
+                 Home
+               </Link>
+               <Link
+                 to="/video-content"
+                 onClick={() => setMobileMenuOpen(false)}
+                 className="flex items-center px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md"
+               >
+                 <FaBook className="mr-3 h-5 w-5" />
+                 Courses
+               </Link>
+               <Link
+                 to="/aboutus"
+                 onClick={() => setMobileMenuOpen(false)}
+                 className="flex items-center px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md"
+               >
+                 <PiAddressBook className="mr-3 h-5 w-5" />
+                 About
+               </Link>
+               {!userInfo && (
+                 <>
+                   <Link
+                     to="/login"
+                     onClick={() => setMobileMenuOpen(false)}
+                     className="flex items-center px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md"
+                   >
+                     <AiOutlineLogin className="mr-3 h-5 w-5" />
+                     Login
+                   </Link>
+                   <Link
+                     to="/register"
+                     onClick={() => setMobileMenuOpen(false)}
+                     className="flex items-center px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-md"
+                   >
+                     <AiOutlineUserAdd className="mr-3 h-5 w-5" />
+                     Register
+                   </Link>
+                 </>
+               )}
+             </div>
+           </div>
+         )}
+       </div>
     </>
    );
 };
