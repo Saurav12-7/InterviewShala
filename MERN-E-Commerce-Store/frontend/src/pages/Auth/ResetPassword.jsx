@@ -18,7 +18,7 @@ const ResetPassword = () => {
   useEffect(() => {
     const validateToken = async () => {
       try {
-        const response = await fetch(`/api/users/verify-reset-token/${token}`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users/verify-reset-token/${token}`);
         
         if (response.ok) {
           setTokenValid(true);
@@ -53,7 +53,7 @@ const ResetPassword = () => {
     setMessage('');
 
     try {
-      const response = await fetch('/api/users/reset-password', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/users/reset-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
